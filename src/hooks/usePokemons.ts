@@ -9,11 +9,12 @@ function usePokemons() {
   useEffect(() => {
     async function getPokemons() {
       const urls = kantoStarterPokemons.pokemonNames.map(
-        (pokemonName) => `https://pokeapi.co/api/v2/pokemon/{pokemonName}`
+        (pokemonName) =>
+          `https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`
       )
-      const results = await Promise.all([
-        axios.get<PokemonInfo>(`https://pokeapi.co/api/v2/pokemon/1`),
-      ])
+      const results = await Promise.all(
+        urls.map((url) => axios.get<PokemonInfo>(url))
+      )
       setPokemons(results.map((result) => result.data))
     }
     getPokemons()
