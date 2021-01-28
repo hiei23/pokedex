@@ -1,42 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-
-interface PokemonAbility {
-  ability: {
-    name: string
-    url: string
-  }
-  is_hidden: boolean
-}
-
-interface PokemonStat {
-  base_stat: number
-  effort: number
-  stat: {
-    name: string
-    url: string
-  }
-}
-
-interface PokemonType {
-  type: {
-    name: string
-    url: string
-  }
-}
-
-interface PokemonInfo {
-  abilities: PokemonAbility[]
-  base_experience: number
-  name: string
-  id: number
-  sprites: {
-    front_default: string
-  }
-  stats: PokemonStat[]
-  types: PokemonType[]
-  weight: number
-}
+import { PokemonInfo } from '../types'
 
 function usePokemons() {
   const [pokemons, setPokemons] = useState<PokemonInfo[]>([])
