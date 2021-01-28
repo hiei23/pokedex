@@ -61,7 +61,8 @@
       }
     ],
     "react/jsx-indent": ["error", 2],
-    "react/jsx-max-props-per-line": [1, { "maximum": 1 }]
+    "react/prop-types": "off",
+    "camelcase": "off"
   },
   "settings": {
     "import/resolver": {
