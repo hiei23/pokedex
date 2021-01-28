@@ -1,6 +1,6 @@
 import React from 'react'
 import PokemonCard from './PokemonCard'
-import usePokemons from '../hooks/pokemons'
+import usePokemons from '../hooks/usePokemons'
 
 const PokemonList = () => {
   const { pokemons } = usePokemons()
