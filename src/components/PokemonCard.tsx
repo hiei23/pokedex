@@ -23,8 +23,6 @@ const useStyles = makeStyles({
   },
 });
 
-
-
 const PokemonCard: FunctionComponent<PokemonCardProps> = ({
   id,
   name,
@@ -46,10 +44,10 @@ const PokemonCard: FunctionComponent<PokemonCardProps> = ({
             {id}
           </Typography>
           <Typography gutterBottom variant="h5" component="h2">
-            Lizard
+            {name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {mappedAbilities.join(' / ')}
+            {`Abilities: ${mappedAbilities.join(' / ')}`}
           </Typography>
         </CardContent>
       </CardActionArea>
