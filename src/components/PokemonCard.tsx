@@ -5,12 +5,12 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-// import usePokemons from '../hooks/pokemons'
+import { PokemonAbility } from '../types'
 
 interface PokemonCardProps {
   id: number
   name: string
-  abilities?: any
+  abilities: PokemonAbility[]
   imageURL: string
 }
 
@@ -25,10 +25,14 @@ const useStyles = makeStyles({
 
 
 
-const PokemonCard: FunctionComponent<PokemonCardProps> = ({ id, name, abilities, imageURL }) => {
+const PokemonCard: FunctionComponent<PokemonCardProps> = ({
+  id,
+  name,
+  abilities,
+  imageURL
+}) => {
   const classes = useStyles()
-  // const { pokemons } = usePokemons()
-
+  const mappedAbilities = abilities.map(ability => ability.ability.name)
   return (
     <Card className={classes.root}>
       <CardActionArea>
@@ -39,11 +43,13 @@ const PokemonCard: FunctionComponent<PokemonCardProps> = ({ id, name, abilities,
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
+            {id}
+          </Typography>
+          <Typography gutterBottom variant="h5" component="h2">
             Lizard
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
+            {mappedAbilities.join(' / ')}
           </Typography>
         </CardContent>
       </CardActionArea>
