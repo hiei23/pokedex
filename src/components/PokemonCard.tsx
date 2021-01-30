@@ -45,7 +45,7 @@ const TabPanel: FunctionComponent<TabPanelProps> = ({ children, value, index, })
   >
     {value === index && (
       <Box p={3}>
-        <Typography>{children}</Typography>
+        {children}
       </Box>
     )}
   </Paper>
