@@ -9,10 +9,12 @@ const PokemonList = () => {
     <>
       { pokemons.map((pokemon) => (
         <PokemonCard
+          key={pokemon.id}
           id={pokemon.id}
           imageURL={pokemon.sprites.front_default}
           name={pokemon.name}
           abilities={pokemon.abilities}
+          stats={pokemon.stats}
         />
       ))}
     </>
