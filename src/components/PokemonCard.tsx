@@ -2,31 +2,34 @@ import React, { FunctionComponent } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
+
 import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
-import { PokemonAbility, PokemonStat } from '../types'
+import { PokemonStat, PokemonAbility } from '../types'
 import PokemonStatsChart, { CHART_MIN_VALUE } from './PokemonStatsChart'
+import PokemonDetails, { PokemonDetailsProps } from './PokemonDetails'
 
-interface PokemonCardProps {
-  id: number
-  name: string
-  abilities: PokemonAbility[]
+interface PokemonCardProps extends Omit<PokemonDetailsProps, 'abilities'> {
   imageURL: string
   stats: PokemonStat[]
+  abilities: PokemonAbility[]
 }
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    maxHeight: 320,
+    display: 'flex',
   },
   media: {
-    height: 140,
+    height: 320,
+    width: 320,
+  },
+  graph: {
+    maxHeight: 350,
+    display: 'flex',
   },
 });
 
@@ -57,7 +60,8 @@ const PokemonCard: FunctionComponent<PokemonCardProps> = ({
   name,
   abilities,
   imageURL,
-  stats
+  stats,
+  weight
 }) => {
   const classes = useStyles()
   const [value, setValue] = React.useState(0);
@@ -90,29 +94,26 @@ const PokemonCard: FunctionComponent<PokemonCardProps> = ({
       </AppBar>
       <TabPanel value={value} index={0}>
         <Card className={classes.root}>
-          <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={imageURL}
-              title={name}
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
-                {id}
-              </Typography>
-              <Typography gutterBottom variant="h5" component="h2">
-                {name}
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                {`Abilities: ${mappedAbilities.join(' / ')}`}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
+          <CardMedia
+            className={classes.media}
+            image={imageURL}
+            title={name}
+          />
+          <PokemonDetails
+            id={id}
+            name={name}
+            weight={weight}
+            abilities={mappedAbilities}
+          />
         </Card>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Card className={classes.root}>
-          <PokemonStatsChart title={chartTitle} labels={chartLabels} values={chartValues} />
+        <Card className={classes.graph}>
+          <PokemonStatsChart
+            title={chartTitle}
+            labels={chartLabels}
+            values={chartValues}
+          />
         </Card>
       </TabPanel>
     </>

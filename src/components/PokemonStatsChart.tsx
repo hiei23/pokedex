@@ -45,7 +45,7 @@ const PokemonStatsChart = ({ title, labels, values }: PokemonStatsChartProps) =>
               suggestedMax: 15
             }
           },
-          responsive: true
+          responsive: false
         },
       })
     }
@@ -55,7 +55,7 @@ const PokemonStatsChart = ({ title, labels, values }: PokemonStatsChartProps) =>
   }, [])
 
   return (
-    <canvas ref={canvasRef} width="400" height="400" />
+    <canvas ref={canvasRef} width="320" height="320" style={{ margin: '0 auto' }} />
   )
 }
 
