@@ -29,12 +29,12 @@ const usePokemonDetailsStyles = makeStyles({
 
 const Label: FunctionComponent<LabelProps> = ({ labelName, text }) => (
   <>
-    <Grid item xs={2}>
+    <Grid item xs={3}>
       <Box textAlign="left" fontWeight="fontWeightBold" m={1}>
         {labelName}
       </Box>
     </Grid>
-    <Grid item xs={10}>
+    <Grid item xs={9}>
       <Box textAlign="right" fontWeight="fontWeightRegular" m={1}>
         {` ${text}`}
       </Box>
