@@ -25,11 +25,29 @@ const PokemonStatsChart = ({ title, labels, values }: PokemonStatsChartProps) =>
             data: values,
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
             ],
             borderColor: [
               'rgba(255, 99, 132, 1)',
+              'rgba(255, 99, 132, 1)',
+              'rgba(255, 99, 132, 1)',
+              'rgba(255, 99, 132, 1)',
+              'rgba(255, 99, 132, 1)',
+              'rgba(255, 99, 132, 1)',
             ],
-            borderWidth: 1
+            borderWidth: 1,
+            pointBackgroundColor: [
+              '#ef476f',
+              '#ffd166',
+              '#06d6a0',
+              '#118ab2',
+              '#073b4c',
+              '#9b5de5'
+            ]
           }]
         },
         options: {
@@ -41,11 +59,28 @@ const PokemonStatsChart = ({ title, labels, values }: PokemonStatsChartProps) =>
               display: false
             },
             ticks: {
-              suggestedMin: 5,
-              suggestedMax: 15
-            }
+              beginAtZero: true,
+              min: 0,
+              max: 80,
+              stepSize: 20,
+            },
+            pointLabels: {
+              fontSize: 14
+            },
           },
-          responsive: false
+          responsive: false,
+          tooltips: {
+            callbacks: {
+              title: (tooltipItem, data) => {
+                const defaultIndex = 0
+                const selectedIndex = tooltipItem[0].index ?? defaultIndex
+                if (selectedIndex !== undefined && selectedIndex >= 0 && data?.labels) {
+                  return `${data.labels[selectedIndex]}`
+                }
+                return ''
+              },
+            }
+          }
         },
       })
     }

@@ -16,6 +16,10 @@ interface LabelProps {
   text: string
 }
 
+interface TitleProps {
+  text: string
+}
+
 const usePokemonDetailsStyles = makeStyles({
   content: {
     flex: '1 0 auto',
@@ -24,8 +28,15 @@ const usePokemonDetailsStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
   },
-
 });
+
+const Title: FunctionComponent<TitleProps> = ({ text }) => (
+  <Grid item xs={12}>
+    <Box textAlign="center" fontWeight="fontWeightBold" m={1}>
+      {text}
+    </Box>
+  </Grid>
+)
 
 const Label: FunctionComponent<LabelProps> = ({ labelName, text }) => (
   <>
@@ -54,6 +65,7 @@ const PokemonDetails: FunctionComponent<PokemonDetailsProps> = ({
     <div className={classes.details}>
       <CardContent className={classes.content}>
         <Grid container>
+          <Title text="Summary" />
           <Label labelName="ID:" text={`${id}`} />
           <Label labelName="Name:" text={name} />
           <Label labelName="Abilities:" text={abilities.join(' / ')} />
