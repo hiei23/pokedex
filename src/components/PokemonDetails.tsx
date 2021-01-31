@@ -9,6 +9,7 @@ export interface PokemonDetailsProps {
   name: string
   abilities: string[]
   weight: number
+  types: string[]
 }
 
 interface LabelProps {
@@ -58,7 +59,8 @@ const PokemonDetails: FunctionComponent<PokemonDetailsProps> = ({
   id,
   name,
   abilities,
-  weight
+  weight,
+  types
 }) => {
   const classes = usePokemonDetailsStyles()
   return (
@@ -70,6 +72,7 @@ const PokemonDetails: FunctionComponent<PokemonDetailsProps> = ({
           <Label labelName="Name:" text={name} />
           <Label labelName="Abilities:" text={abilities.join(' / ')} />
           <Label labelName="Weight:" text={`${weight}`} />
+          <Label labelName="types:" text={types.join(' / ')} />
         </Grid>
       </CardContent>
     </div>

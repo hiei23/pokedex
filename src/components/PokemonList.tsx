@@ -25,6 +25,7 @@ const PokemonList = () => {
           abilities={pokemon.abilities}
           stats={pokemon.stats}
           weight={pokemon.weight}
+          types={pokemon.types}
         />
       ))}
     </Paper>

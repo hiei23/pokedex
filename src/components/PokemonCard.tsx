@@ -8,14 +8,15 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
-import { PokemonStat, PokemonAbility } from '../types'
+import { PokemonStat, PokemonAbility, PokemonType } from '../types'
 import PokemonStatsChart, { CHART_MIN_VALUE } from './PokemonStatsChart'
 import PokemonDetails, { PokemonDetailsProps } from './PokemonDetails'
 
-interface PokemonCardProps extends Omit<PokemonDetailsProps, 'abilities'> {
+interface PokemonCardProps extends Omit<PokemonDetailsProps, 'abilities' | 'types'> {
   imageURL: string
   stats: PokemonStat[]
   abilities: PokemonAbility[]
+  types: PokemonType[]
 }
 
 const useStyles = makeStyles({
@@ -61,7 +62,8 @@ const PokemonCard: FunctionComponent<PokemonCardProps> = ({
   abilities,
   imageURL,
   stats,
-  weight
+  weight,
+  types
 }) => {
   const classes = useStyles()
   const [value, setValue] = React.useState(0);
@@ -71,6 +73,7 @@ const PokemonCard: FunctionComponent<PokemonCardProps> = ({
   }
   const pokemonAttributes = ['hp', 'attack', 'defense', 'speed', 'special-defense', 'special-attack']
   const mappedAbilities = abilities.map(ability => ability.ability.name)
+  const mappedTypes = types.map(type => type.type.name)
   const chartTitle = `${name} stats`
   const chartLabels = pokemonAttributes.map(attirbute => attirbute.split('-'))
   const chartValues = pokemonAttributes.map(label => {
@@ -104,6 +107,7 @@ const PokemonCard: FunctionComponent<PokemonCardProps> = ({
             name={name}
             weight={weight}
             abilities={mappedAbilities}
+            types={mappedTypes}
           />
         </Card>
       </TabPanel>
