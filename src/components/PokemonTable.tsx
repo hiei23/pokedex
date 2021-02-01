@@ -68,7 +68,7 @@ interface TablePaginationActionsProps {
   onChangePage: (event: MouseEvent<HTMLButtonElement>, newPage: number) => void;
 }
 
-const useStyles1 = makeStyles((theme: Theme) =>
+const usePaginationActionStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexShrink: 0,
@@ -83,7 +83,7 @@ function TablePaginationActions({
   rowsPerPage,
   onChangePage
 }: TablePaginationActionsProps) {
-  const classes = useStyles1();
+  const classes = usePaginationActionStyles();
   const theme = useTheme();
 
   const handleFirstPageButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -132,11 +132,11 @@ function TablePaginationActions({
   );
 }
 
-function CollapsibleTable() {
+const CollapsibleTable: FunctionComponent = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const { paginatedList } = usePokemons()
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, paginatedList.results.length - page * rowsPerPage);
+  console.log({ limit: rowsPerPage * page, offset: page })
+  const { paginatedList } = usePokemons({ limit: rowsPerPage, offset: rowsPerPage * page })
 
   const handleChangePage = (event: MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     setPage(newPage);
@@ -160,21 +160,19 @@ function CollapsibleTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {!emptyRows && paginatedList.results.map((row) => (
-            <Row key={row.name} row={row} />
+          {paginatedList.results.map((row) => (
+            <Row key={row.id} row={row} />
           ))}
-          {/* {emptyRows && (
-            <TableRow style={{ height: 53 * emptyRows }}>
-              <TableCell colSpan={6} />
-            </TableRow>
-          )} */}
+          {
+            console.log(paginatedList.results)
+          }
         </TableBody>
         <TableFooter>
           <TableRow>
             <TablePagination
               rowsPerPageOptions={[5, 10, 25]}
               colSpan={3}
-              count={paginatedList.results.length}
+              count={paginatedList.count}
               rowsPerPage={rowsPerPage}
               page={page}
               SelectProps={{
