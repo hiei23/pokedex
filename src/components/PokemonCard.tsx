@@ -8,15 +8,13 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
-import { PokemonStat, PokemonAbility, PokemonType } from '../types'
 import PokemonStatsChart, { CHART_MIN_VALUE } from './PokemonStatsChart'
-import PokemonDetails, { PokemonDetailsProps } from './PokemonDetails'
+import PokemonDetails from './PokemonDetails'
 
-interface PokemonCardProps extends Omit<PokemonDetailsProps, 'abilities' | 'types'> {
-  imageURL: string
-  stats: PokemonStat[]
-  abilities: PokemonAbility[]
-  types: PokemonType[]
+import usePokemon from '../hooks/usePokemon'
+
+interface PokemonCardProps {
+  url: string
 }
 
 const useStyles = makeStyles({
@@ -56,28 +54,24 @@ const TabPanel: FunctionComponent<TabPanelProps> = ({ children, value, index, })
 );
 
 
-const PokemonCard: FunctionComponent<PokemonCardProps> = ({
-  id,
-  name,
-  abilities,
-  imageURL,
-  stats,
-  weight,
-  types
-}) => {
+const PokemonCard: FunctionComponent<PokemonCardProps> = ({ url }) => {
   const classes = useStyles()
+  const { pokemon } = usePokemon(url)
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+  const handleChange = (event: React.ChangeEvent<any>, newValue: number) => {
     setValue(newValue);
   }
+
+  if (!pokemon) return null
+
   const pokemonAttributes = ['hp', 'attack', 'defense', 'speed', 'special-defense', 'special-attack']
-  const mappedAbilities = abilities.map(ability => ability.ability.name)
-  const mappedTypes = types.map(type => type.type.name)
-  const chartTitle = `${name} stats`
+  const mappedAbilities = pokemon.abilities.map(ability => ability.ability.name)
+  const mappedTypes = pokemon.types.map(type => type.type.name)
+  const chartTitle = `${pokemon.name} stats`
   const chartLabels = pokemonAttributes.map(attirbute => attirbute.split('-'))
   const chartValues = pokemonAttributes.map(label => {
-    const pokemonStat = stats.find(stat => stat.stat.name === label)
+    const pokemonStat = pokemon.stats.find(stat => stat.stat.name === label)
     return pokemonStat?.base_stat ?? CHART_MIN_VALUE
   })
 
@@ -99,13 +93,13 @@ const PokemonCard: FunctionComponent<PokemonCardProps> = ({
         <Card className={classes.root}>
           <CardMedia
             className={classes.media}
-            image={imageURL}
-            title={name}
+            image={pokemon.sprites.front_default}
+            title={pokemon.name}
           />
           <PokemonDetails
-            id={id}
-            name={name}
-            weight={weight}
+            id={pokemon.id}
+            name={pokemon.name}
+            weight={pokemon.weight}
             abilities={mappedAbilities}
             types={mappedTypes}
           />
