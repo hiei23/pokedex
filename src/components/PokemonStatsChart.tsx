@@ -47,8 +47,8 @@ const PokemonStatsChart = ({ title, labels, values }: PokemonStatsChartProps) =>
             ticks: {
               beginAtZero: true,
               min: 0,
-              max: 80,
-              stepSize: 20,
+              max: 120,
+              stepSize: 30,
             },
             pointLabels: {
               fontSize: 14

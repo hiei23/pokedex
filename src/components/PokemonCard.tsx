@@ -2,15 +2,15 @@ import React, { FunctionComponent } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Card from '@material-ui/core/Card';
-
+import Grid from '@material-ui/core/Grid'
 import CardMedia from '@material-ui/core/CardMedia';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
+
 import PokemonStatsChart, { CHART_MIN_VALUE } from './PokemonStatsChart'
 import PokemonDetails from './PokemonDetails'
-
 import usePokemon from '../hooks/usePokemon'
 
 interface PokemonCardProps {
@@ -21,6 +21,7 @@ const useStyles = makeStyles({
   root: {
     maxHeight: 320,
     display: 'flex',
+    boxShadow: 'unset',
   },
   media: {
     height: 320,
@@ -90,29 +91,36 @@ const PokemonCard: FunctionComponent<PokemonCardProps> = ({ url }) => {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <Card className={classes.root}>
-          <CardMedia
-            className={classes.media}
-            image={pokemon.sprites.front_default}
-            title={pokemon.name}
-          />
-          <PokemonDetails
-            id={pokemon.id}
-            name={pokemon.name}
-            weight={pokemon.weight}
-            abilities={mappedAbilities}
-            types={mappedTypes}
-          />
-        </Card>
+        <Grid container xs={12}>
+          <Grid item xs={5}>
+            <Card className={classes.root}>
+              <CardMedia
+                className={classes.media}
+                image={pokemon.sprites.front_default}
+                title={pokemon.name}
+              />
+            </Card>
+          </Grid>
+          <Grid item xs={7}>
+            <PokemonDetails
+              id={pokemon.id}
+              name={pokemon.name}
+              weight={pokemon.weight}
+              abilities={mappedAbilities}
+              types={mappedTypes}
+            />
+          </Grid>
+
+        </Grid>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Card className={classes.graph}>
-          <PokemonStatsChart
-            title={chartTitle}
-            labels={chartLabels}
-            values={chartValues}
-          />
-        </Card>
+
+        <PokemonStatsChart
+          title={chartTitle}
+          labels={chartLabels}
+          values={chartValues}
+        />
+
       </TabPanel>
     </>
   )
