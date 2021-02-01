@@ -2,13 +2,19 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { PaginatedPokemonList } from '../types'
 
-function usePokemons() {
+interface UsePokemonsProps {
+  offset: number
+  limit: number
+}
+
+function usePokemons({ offset, limit }: UsePokemonsProps) {
   const [paginatedList, setPaginatedList] = useState<PaginatedPokemonList>({
     count: 0,
     next: null,
     previous: null,
     results: [],
   })
+
   function getPokemonID(url: string) {
     // URL 'https://pokeapi.co/api/v2/pokemon/{id}/'
     const regex = /.+\/pokemon\/\d+\/$/
@@ -24,7 +30,7 @@ function usePokemons() {
     async function getPaginatedPokemonList() {
       try {
         const { data } = await axios.get<PaginatedPokemonList>(
-          `https://pokeapi.co/api/v2/pokemon?limit=10&offset=0`
+          `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
         )
 
         setPaginatedList({
@@ -42,7 +48,7 @@ function usePokemons() {
       }
     }
     getPaginatedPokemonList()
-  }, [])
+  }, [offset, limit])
 
   return { paginatedList }
 }
