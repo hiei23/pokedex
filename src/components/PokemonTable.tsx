@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react';
+import React, { MouseEvent, useState, ChangeEvent, FunctionComponent } from 'react';
 import { makeStyles, createStyles, Theme, useTheme } from '@material-ui/core/styles';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
@@ -29,9 +29,12 @@ const useRowStyles = makeStyles({
   },
 });
 
-function Row(props: { row: PaginatedPokemonListItem }) {
-  const { row } = props;
-  const [open, setOpen] = React.useState(false);
+interface RowProps {
+  row: PaginatedPokemonListItem
+}
+
+const Row: FunctionComponent<RowProps> = ({ row }) => {
+  const [open, setOpen] = useState(false);
   const classes = useRowStyles();
 
   return (
@@ -74,25 +77,28 @@ const useStyles1 = makeStyles((theme: Theme) =>
   }),
 );
 
-
-function TablePaginationActions(props: TablePaginationActionsProps) {
+function TablePaginationActions({
+  count,
+  page,
+  rowsPerPage,
+  onChangePage
+}: TablePaginationActionsProps) {
   const classes = useStyles1();
   const theme = useTheme();
-  const { count, page, rowsPerPage, onChangePage } = props;
 
-  const handleFirstPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleFirstPageButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
     onChangePage(event, 0);
   };
 
-  const handleBackButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleBackButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
     onChangePage(event, page - 1);
   };
 
-  const handleNextButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleNextButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
     onChangePage(event, page + 1);
   };
 
-  const handleLastPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleLastPageButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
     onChangePage(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
   };
 
@@ -126,18 +132,18 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   );
 }
 
-export default function CollapsibleTable() {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+function CollapsibleTable() {
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const { paginatedList } = usePokemons()
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, paginatedList.results.length - page * rowsPerPage);
 
-  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
+  const handleChangePage = (event: MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
@@ -185,3 +191,5 @@ export default function CollapsibleTable() {
     </TableContainer>
   );
 }
+
+export default CollapsibleTable
