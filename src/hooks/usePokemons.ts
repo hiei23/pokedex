@@ -1,26 +1,50 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { PokemonInfo } from '../types'
-import { kantoStarterPokemons } from '../data/pokemonData'
+import { PaginatedPokemonList } from '../types'
 
 function usePokemons() {
-  const [pokemons, setPokemons] = useState<PokemonInfo[]>([])
+  const [paginatedList, setPaginatedList] = useState<PaginatedPokemonList>({
+    count: 0,
+    next: null,
+    previous: null,
+    results: [],
+  })
+  function getPokemonID(url: string) {
+    // URL 'https://pokeapi.co/api/v2/pokemon/{id}/'
+    const regex = /.+\/pokemon\/\d+\/$/
+    if (url.match(regex)) {
+      const tokens = url.split('/')
+      const pokemonIdIndex = 6
+      return tokens[pokemonIdIndex]
+    }
+    return null
+  }
 
   useEffect(() => {
-    async function getPokemons() {
-      const urls = kantoStarterPokemons.pokemonNames.map(
-        (pokemonName) =>
-          `https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`
-      )
-      const results = await Promise.all(
-        urls.map((url) => axios.get<PokemonInfo>(url))
-      )
-      setPokemons(results.map((result) => result.data))
+    async function getPaginatedPokemonList() {
+      try {
+        const { data } = await axios.get<PaginatedPokemonList>(
+          `https://pokeapi.co/api/v2/pokemon?limit=10&offset=0`
+        )
+
+        setPaginatedList({
+          count: data.count,
+          next: data.next,
+          previous: data.previous,
+          results: data.results.map((item) => ({
+            id: getPokemonID(item.url),
+            name: item.name,
+            url: item.url,
+          })),
+        })
+      } catch (e) {
+        throw new Error(e)
+      }
     }
-    getPokemons()
+    getPaginatedPokemonList()
   }, [])
 
-  return { pokemons }
+  return { paginatedList }
 }
 
 export default usePokemons
