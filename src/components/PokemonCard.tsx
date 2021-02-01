@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid'
@@ -17,26 +17,37 @@ interface PokemonCardProps {
   url: string
 }
 
-const useStyles = makeStyles({
-  root: {
-    maxHeight: 320,
-    display: 'flex',
-    boxShadow: 'unset',
-  },
-  media: {
-    height: 320,
-    width: 320,
-  },
-  graph: {
-    maxHeight: 350,
-    display: 'flex',
-  },
-});
+const useStyles = makeStyles((theme) => (
+  createStyles({
+    root: {
+      maxHeight: 320,
+      display: 'flex',
+      boxShadow: 'unset',
+    },
+    media: {
+      height: 320,
+      width: 320,
+      [theme.breakpoints.down('xs')]: {
+        height: 180,
+      },
+      [theme.breakpoints.down('sm')]: {
+        height: 200,
+      },
+      [theme.breakpoints.down('sm')]: {
+        height: 235,
+      },
+    },
+    graph: {
+      maxHeight: 350,
+      display: 'flex',
+    },
+  })
+));
 
 interface TabPanelProps {
   children?: React.ReactNode;
-  index: any;
-  value: any;
+  index: number;
+  value: number;
 }
 
 const TabPanel: FunctionComponent<TabPanelProps> = ({ children, value, index, }) => (
