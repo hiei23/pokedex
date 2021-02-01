@@ -34,3 +34,16 @@ export interface PokemonInfo {
   types: PokemonType[]
   weight: number
 }
+
+export interface PaginatedPokemonListItem {
+  id: string | null
+  name: string
+  url: string
+}
+
+export interface PaginatedPokemonList {
+  count: number
+  next: string | null
+  previous: string | null
+  results: PaginatedPokemonListItem[]
+}
