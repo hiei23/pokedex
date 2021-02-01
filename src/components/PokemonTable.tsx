@@ -135,7 +135,6 @@ function TablePaginationActions({
 const CollapsibleTable: FunctionComponent = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  console.log({ limit: rowsPerPage * page, offset: page })
   const { paginatedList } = usePokemons({ limit: rowsPerPage, offset: rowsPerPage * page })
 
   const handleChangePage = (event: MouseEvent<HTMLButtonElement> | null, newPage: number) => {
@@ -163,9 +162,6 @@ const CollapsibleTable: FunctionComponent = () => {
           {paginatedList.results.map((row) => (
             <Row key={row.id} row={row} />
           ))}
-          {
-            console.log(paginatedList.results)
-          }
         </TableBody>
         <TableFooter>
           <TableRow>
