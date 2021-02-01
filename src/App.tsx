@@ -2,13 +2,24 @@ import React from 'react';
 // import logo from './logo.svg';
 import 'fontsource-roboto'
 import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom"
 
-import PokemonList from './components/PokemonList'
+import PokemonTable from './components/PokemonTable'
 
 function App() {
   return (
     <div className="App">
-      <PokemonList />
+      <Router>
+        <Switch>
+          <Route path='/'>
+            <PokemonTable />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
