@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect } from 'react'
+import React, { FunctionComponent, useRef, useLayoutEffect } from 'react'
 import Chart from 'chart.js'
 
 interface PokemonStatsChartProps {
@@ -9,7 +9,11 @@ interface PokemonStatsChartProps {
 
 export const CHART_MIN_VALUE = 0
 
-const PokemonStatsChart = ({ title, labels, values }: PokemonStatsChartProps) => {
+const PokemonStatsChart: FunctionComponent<PokemonStatsChartProps> = ({
+  title,
+  labels,
+  values
+}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useLayoutEffect(() => {

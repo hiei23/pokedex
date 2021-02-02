@@ -7,7 +7,11 @@ interface UsePokemonsProps {
   limit: number
 }
 
-function usePokemons({ offset, limit }: UsePokemonsProps) {
+interface UsePokemonsValues {
+  paginatedList: PaginatedPokemonList
+}
+
+function usePokemons({ offset, limit }: UsePokemonsProps): UsePokemonsValues {
   const [paginatedList, setPaginatedList] = useState<PaginatedPokemonList>({
     count: 0,
     next: null,

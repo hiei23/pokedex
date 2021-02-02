@@ -71,7 +71,7 @@ const PokemonCard: FunctionComponent<PokemonCardProps> = ({ url }) => {
   const { pokemon } = usePokemon(url)
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: React.ChangeEvent<any>, newValue: number) => {
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   }
 
