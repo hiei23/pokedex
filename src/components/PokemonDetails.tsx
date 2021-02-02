@@ -47,7 +47,7 @@ const Label: FunctionComponent<LabelProps> = ({ labelName, text }) => (
       </Box>
     </Grid>
     <Grid item xs={11}>
-      <Box textAlign="right" fontWeight="fontWeightRegular" m={1}>
+      <Box textAlign="right" fontWeight="fontWeightRegular" m={1} style={{ textTransform: 'capitalize' }}>
         {` ${text}`}
       </Box>
     </Grid>
@@ -72,7 +72,7 @@ const PokemonDetails: FunctionComponent<PokemonDetailsProps> = ({
           <Label labelName="Name:" text={name} />
           <Label labelName="Abilities:" text={abilities.join(' / ')} />
           <Label labelName="Weight:" text={`${weight}`} />
-          <Label labelName="types:" text={types.join(' / ')} />
+          <Label labelName="Types:" text={types.join(' / ')} />
         </Grid>
       </CardContent>
     </div>
