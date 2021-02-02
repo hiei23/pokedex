@@ -48,10 +48,10 @@ const Row: FunctionComponent<RowProps> = ({ row }) => {
         <TableCell component="th" scope="row">
           {row.id}
         </TableCell>
-        <TableCell align="right">{row.name}</TableCell>
+        <TableCell align="right" style={{ paddingBottom: 0, paddingTop: 0, textTransform: 'capitalize' }}>{row.name}</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0, }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <PokemonCard url={row.url} />
           </Collapse>
