@@ -151,7 +151,7 @@ function TablePaginationActions({
 
 const CollapsibleTable: FunctionComponent = () => {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const { paginatedList } = usePokemons({ limit: rowsPerPage, offset: rowsPerPage * page })
 
   const handleChangePage = (event: MouseEvent<HTMLButtonElement> | null, newPage: number) => {
@@ -183,7 +183,7 @@ const CollapsibleTable: FunctionComponent = () => {
         <TableFooter>
           <TableRow>
             <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
+              rowsPerPageOptions={[20, 30, 50]}
               colSpan={3}
               count={paginatedList.count}
               rowsPerPage={rowsPerPage}
