@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="App"
       style={{
-        backgroundImage: ' linear-gradient(to top, #4481eb 0%, #04befe 100%)'
+        backgroundImage: 'linear-gradient(to top, #4481eb 0%, #04befe 100%)'
       }}>
       <Header title="PokeTable" />
       <Router>
