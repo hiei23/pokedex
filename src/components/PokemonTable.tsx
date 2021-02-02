@@ -21,6 +21,37 @@ import usePokemons from '../hooks/usePokemons'
 import { PaginatedPokemonListItem } from '../types';
 import PokemonCard from './PokemonCard';
 
+const useHeaderStyles = makeStyles({
+  header: {
+    fontWeight: 'bold'
+  },
+});
+
+
+interface TableHeaderProps {
+  columns: string[]
+}
+
+const TableHeader: FunctionComponent<TableHeaderProps> = ({ columns }) => {
+  const classes = useHeaderStyles()
+
+  return (
+    <TableRow >
+      <TableCell />
+      {
+        columns.map((column, index) => (
+          <TableCell
+            className={classes.header}
+            align={index === 0 ? "left" : "right"}
+          >
+            {column}
+          </TableCell>
+        ))
+      }
+    </TableRow>
+  )
+}
+
 const useRowStyles = makeStyles({
   root: {
     '& > *': {
@@ -55,8 +86,6 @@ const Row: FunctionComponent<RowProps> = ({ row }) => {
         <TableCell
           align="right"
           style={{
-            paddingBottom: 0,
-            paddingTop: 0,
             textTransform: 'capitalize'
           }}
         >
@@ -114,6 +143,7 @@ function TablePaginationActions({
   const handleLastPageButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
     onChangePage(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
   };
+
   const isTextRightToLeft = theme.direction === 'rtl'
   return (
     <div className={classes.root}>
@@ -169,11 +199,7 @@ const CollapsibleTable: FunctionComponent = () => {
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell>ID</TableCell>
-            <TableCell align="right">Name</TableCell>
-          </TableRow>
+          <TableHeader columns={['ID', 'Name']} />
         </TableHead>
         <TableBody>
           {paginatedList.results.map((row) => (
