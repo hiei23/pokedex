@@ -13,12 +13,19 @@ import Header from './components/Header'
 
 function App() {
   return (
-    <div className="App">
+    <div className="App"
+      style={{
+        backgroundImage: ' linear-gradient(to top, #4481eb 0%, #04befe 100%)'
+      }}>
       <Header title="PokeTable" />
       <Router>
         <Switch>
           <Route path='/'>
-            <Grid container style={{ paddingTop: 40, paddingBottom: 40 }}>
+            <Grid container style={{
+              paddingTop: 40,
+              paddingBottom: 40,
+
+            }}>
               <Grid container xs={12} >
                 <Grid xs={1} lg={3} />
                 <Grid item xs={10} lg={6}>
