@@ -6,10 +6,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={createMuiTheme()}>
+    <ThemeProvider theme={createMuiTheme({
+      palette: {
+        primary: {
+          main: "#f44336"
+        }
+      },
+    })}>
       <App />
     </ThemeProvider>
   </React.StrictMode>,
