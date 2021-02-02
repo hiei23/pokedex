@@ -41,14 +41,27 @@ const Row: FunctionComponent<RowProps> = ({ row }) => {
     <>
       <TableRow className={classes.root}>
         <TableCell>
-          <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => setOpen(!open)}
+          >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
           {row.id}
         </TableCell>
-        <TableCell align="right" style={{ paddingBottom: 0, paddingTop: 0, textTransform: 'capitalize' }}>{row.name}</TableCell>
+        <TableCell
+          align="right"
+          style={{
+            paddingBottom: 0,
+            paddingTop: 0,
+            textTransform: 'capitalize'
+          }}
+        >
+          {row.name}
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0, }} colSpan={6}>
@@ -101,7 +114,7 @@ function TablePaginationActions({
   const handleLastPageButtonClick = (event: MouseEvent<HTMLButtonElement>) => {
     onChangePage(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
   };
-
+  const isTextRightToLeft = theme.direction === 'rtl'
   return (
     <div className={classes.root}>
       <IconButton
@@ -109,24 +122,28 @@ function TablePaginationActions({
         disabled={page === 0}
         aria-label="first page"
       >
-        {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
+        {isTextRightToLeft ? <LastPageIcon /> : <FirstPageIcon />}
       </IconButton>
-      <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label="previous page">
-        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+      <IconButton
+        onClick={handleBackButtonClick}
+        disabled={page === 0}
+        aria-label="previous page"
+      >
+        {isTextRightToLeft ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
       </IconButton>
       <IconButton
         onClick={handleNextButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="next page"
       >
-        {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+        {isTextRightToLeft ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
       </IconButton>
       <IconButton
         onClick={handleLastPageButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="last page"
       >
-        {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
+        {isTextRightToLeft ? <FirstPageIcon /> : <LastPageIcon />}
       </IconButton>
     </div>
   );

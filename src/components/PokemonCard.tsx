@@ -77,7 +77,14 @@ const PokemonCard: FunctionComponent<PokemonCardProps> = ({ url }) => {
 
   if (!pokemon) return null
 
-  const pokemonAttributes = ['hp', 'attack', 'defense', 'speed', 'special-defense', 'special-attack']
+  const pokemonAttributes = [
+    'hp',
+    'attack',
+    'defense',
+    'speed',
+    'special-defense',
+    'special-attack'
+  ]
   const mappedAbilities = pokemon.abilities.map(ability => ability.ability.name)
   const mappedTypes = pokemon.types.map(type => type.type.name)
   const chartTitle = `${pokemon.name} base stats`
@@ -121,17 +128,14 @@ const PokemonCard: FunctionComponent<PokemonCardProps> = ({ url }) => {
               types={mappedTypes}
             />
           </Grid>
-
         </Grid>
       </TabPanel>
       <TabPanel value={value} index={1}>
-
         <PokemonStatsChart
           title={chartTitle}
           labels={chartLabels}
           values={chartValues}
         />
-
       </TabPanel>
     </>
   )
