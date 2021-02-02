@@ -80,7 +80,7 @@ const PokemonCard: FunctionComponent<PokemonCardProps> = ({ url }) => {
   const pokemonAttributes = ['hp', 'attack', 'defense', 'speed', 'special-defense', 'special-attack']
   const mappedAbilities = pokemon.abilities.map(ability => ability.ability.name)
   const mappedTypes = pokemon.types.map(type => type.type.name)
-  const chartTitle = `${pokemon.name} stats`
+  const chartTitle = `${pokemon.name} base stats`
   const chartLabels = pokemonAttributes.map(attirbute => attirbute.split('-'))
   const chartValues = pokemonAttributes.map(label => {
     const pokemonStat = pokemon.stats.find(stat => stat.stat.name === label)
