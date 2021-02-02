@@ -51,16 +51,13 @@ function App() {
       <Router>
         <Switch>
           <Route path='/'>
-            <Grid container style={{ paddingTop: 60 }}>
+            <Grid container style={{ paddingTop: 40, paddingBottom: 40 }}>
               <Grid container xs={12} >
                 <Grid xs={1} lg={3} />
                 <Grid item xs={10} lg={6}>
                   <PokemonTable />
                 </Grid>
                 <Grid xs={1} lg={3} />
-              </Grid>
-              <Grid item xs={12}>
-                Footer
               </Grid>
             </Grid>
           </Route>
