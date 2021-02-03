@@ -1,0 +1,22 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "projectId": "pokeTable",
+  "video": false,
+  "ignoreTestFiles": ["**/__snapshots__/*", "**/__image_snapshots__/*"],
+  "env": {
+    "cypress-plugin-snapshots": {
+      "imageConfig": {
+        "threshold": 0.01
+      },
+      "screenshotConfig": {
+        "blackout": [],
+        "capture": "fullPage",
+        "clip": null,
+        "disableTimersAndAnimations": true,
+        "log": false,
+        "scale": false,
+        "timeout": 30000
+      }
+    }
+  }
+}
