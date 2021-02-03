@@ -24,6 +24,8 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
+import "cypress-plugin-snapshots/commands";
+
 /* Checks if the list of name exist */
 Cypress.Commands.add(
   "checkTableRowNames",
@@ -31,7 +33,9 @@ Cypress.Commands.add(
     cy.get(elementId)
       .children()
       .each((el, index) => {
-        cy.contains(names[index]);
+        if (index < names.length) {
+          cy.contains(names[index]);
+        }
       });
   }
 );
