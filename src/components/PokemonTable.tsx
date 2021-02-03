@@ -36,11 +36,12 @@ const TableHeader: FunctionComponent<TableHeaderProps> = ({ columns }) => {
   const classes = useHeaderStyles()
 
   return (
-    <TableRow >
+    <TableRow id="pokeTableHeader">
       <TableCell />
       {
         columns.map((column, index) => (
           <TableCell
+            key={`${column}`}
             className={classes.header}
             align={index === 0 ? "left" : "right"}
           >
@@ -70,7 +71,7 @@ const Row: FunctionComponent<RowProps> = ({ row }) => {
 
   return (
     <>
-      <TableRow className={classes.root}>
+      <TableRow id={`${row.name}-row`} className={classes.root}>
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -80,7 +81,7 @@ const Row: FunctionComponent<RowProps> = ({ row }) => {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
+        <TableCell scope="row">
           {row.id}
         </TableCell>
         <TableCell
@@ -93,7 +94,7 @@ const Row: FunctionComponent<RowProps> = ({ row }) => {
         </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0, }} colSpan={6}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0, }} colSpan={6} onClick={() => console.log('hi')}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <PokemonCard url={row.url} />
           </Collapse>
@@ -197,11 +198,11 @@ const CollapsibleTable: FunctionComponent = () => {
 
   return (
     <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
+      <Table aria-label="collapsible table" id="pokemonTable">
         <TableHead>
           <TableHeader columns={['ID', 'Name']} />
         </TableHead>
-        <TableBody>
+        <TableBody id="pokeTableBody">
           {paginatedList.results.map((row) => (
             <Row key={row.id} row={row} />
           ))}
