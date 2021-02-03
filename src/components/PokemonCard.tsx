@@ -95,7 +95,7 @@ const PokemonCard: FunctionComponent<PokemonCardProps> = ({ url }) => {
   })
 
   return (
-    <>
+    <div id={`${pokemon.name}-pokemon-card`}>
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab label="Pokemon"
@@ -109,7 +109,7 @@ const PokemonCard: FunctionComponent<PokemonCardProps> = ({ url }) => {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <Grid container xs={12}>
+        <Grid container xs={12} id={`${pokemon.name}-pokemon-card-details`}>
           <Grid item xs={5}>
             <Card className={classes.root}>
               <CardMedia
@@ -137,7 +137,7 @@ const PokemonCard: FunctionComponent<PokemonCardProps> = ({ url }) => {
           values={chartValues}
         />
       </TabPanel>
-    </>
+    </div>
   )
 }
 
