@@ -27,11 +27,11 @@ function App() {
 
             }}>
               <Grid container xs={12} >
-                <Grid xs={1} lg={3} />
+                <Grid item xs={1} lg={3} />
                 <Grid item xs={10} lg={6}>
                   <PokemonTable />
                 </Grid>
-                <Grid xs={1} lg={3} />
+                <Grid item xs={1} lg={3} />
               </Grid>
             </Grid>
           </Route>
