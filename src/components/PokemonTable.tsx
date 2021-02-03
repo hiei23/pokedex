@@ -94,7 +94,7 @@ const Row: FunctionComponent<RowProps> = ({ row }) => {
         </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0, }} colSpan={6} onClick={() => console.log('hi')}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0, }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <PokemonCard url={row.url} />
           </Collapse>
