@@ -35,13 +35,9 @@ const useStyles = makeStyles((theme) => (
       [theme.breakpoints.down('sm')]: {
         height: 200,
       },
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         height: 235,
       },
-    },
-    graph: {
-      maxHeight: 350,
-      display: 'flex',
     },
   })
 ));

@@ -1,4 +1,9 @@
-import React, { FunctionComponent, useRef, useLayoutEffect } from 'react'
+import React, {
+  FunctionComponent,
+  useRef,
+  useLayoutEffect,
+} from 'react'
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Chart from 'chart.js'
 
 interface PokemonStatsChartProps {
@@ -6,6 +11,23 @@ interface PokemonStatsChartProps {
   labels: string[] | string[][]
   values: number[]
 }
+
+const useGraphStyles = makeStyles((theme) => (
+  createStyles({
+    container: {
+      height: 320,
+      width: 320,
+      margin: 'auto',
+      [theme.breakpoints.down('md')]: {
+        height: 256,
+      },
+    },
+    canvas: {
+      width: "100%",
+      height: "100%"
+    },
+  })
+));
 
 export const CHART_MIN_VALUE = 0
 
@@ -15,10 +37,13 @@ const PokemonStatsChart: FunctionComponent<PokemonStatsChartProps> = ({
   values
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const classes = useGraphStyles()
 
   useLayoutEffect(() => {
     const canvasContext = canvasRef?.current?.getContext("2d")
     let radioChart: Chart
+
+
     if (canvasContext) {
       radioChart = new Chart(canvasContext, {
         type: 'radar',
@@ -80,7 +105,12 @@ const PokemonStatsChart: FunctionComponent<PokemonStatsChartProps> = ({
   }, [])
 
   return (
-    <canvas ref={canvasRef} width="320" height="320" style={{ margin: '0 auto' }} />
+    <div className={classes.container}>
+      <canvas
+        ref={canvasRef}
+        className={classes.canvas}
+      />
+    </div>
   )
 }
 
