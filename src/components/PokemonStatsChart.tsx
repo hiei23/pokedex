@@ -22,10 +22,6 @@ const useGraphStyles = makeStyles((theme) => (
         height: 256,
       },
     },
-    canvas: {
-      width: "100%",
-      height: "100%"
-    },
   })
 ));
 
@@ -108,7 +104,7 @@ const PokemonStatsChart: FunctionComponent<PokemonStatsChartProps> = ({
     <div className={classes.container}>
       <canvas
         ref={canvasRef}
-        className={classes.canvas}
+        style={{ width: "100%", height: "100%" }}
       />
     </div>
   )
