@@ -71,7 +71,7 @@ const PokemonDetails: FunctionComponent<PokemonDetailsProps> = ({
           <Label labelName="ID:" text={`${id}`} />
           <Label labelName="Name:" text={name} />
           <Label labelName="Abilities:" text={abilities.join(' / ')} />
-          <Label labelName="Weight:" text={`${weight}`} />
+          <Label labelName="Weight:" text={`${weight} kg`} />
           <Label labelName="Types:" text={types.join(' / ')} />
         </Grid>
       </CardContent>
