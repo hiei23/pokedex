@@ -7,7 +7,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <>
     <ThemeProvider theme={createMuiTheme({
       palette: {
         primary: {
@@ -17,7 +17,7 @@ ReactDOM.render(
     })}>
       <App />
     </ThemeProvider>
-  </React.StrictMode>,
+  </>,
   document.getElementById('root')
 );
 
