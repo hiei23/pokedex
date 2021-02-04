@@ -13,6 +13,8 @@ import PokemonStatsChart, { CHART_MIN_VALUE } from './PokemonStatsChart'
 import PokemonDetails from './PokemonDetails'
 import usePokemon from '../hooks/usePokemon'
 
+import Utils from '../helpers/utils'
+
 interface PokemonCardProps {
   url: string
 }
@@ -87,11 +89,15 @@ const PokemonCard: FunctionComponent<PokemonCardProps> = ({ url }) => {
   ]
   const mappedAbilities = pokemon.abilities.map(ability => ability.ability.name)
   const mappedTypes = pokemon.types.map(type => type.type.name)
-  const chartTitle = `${pokemon.name} base stats`
-  const chartLabels = pokemonAttributes.map(attirbute => attirbute.split('-'))
+  const chartTitle = `${Utils.capitalizeText(pokemon.name)} base stats`
+  const chartLabels = pokemonAttributes.map(attirbute => {
+    const tokens = attirbute.split('-')
+    return tokens.map(Utils.capitalizeText)
+  })
+
   const chartValues = pokemonAttributes.map(label => {
     const pokemonStat = pokemon.stats.find(stat => stat.stat.name === label)
-    return pokemonStat?.base_stat ?? CHART_MIN_VALUE
+    return Number(pokemonStat?.base_stat) / 10 ?? CHART_MIN_VALUE
   })
 
   return (
@@ -109,7 +115,7 @@ const PokemonCard: FunctionComponent<PokemonCardProps> = ({ url }) => {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <Grid container xs={12} id={`${pokemon.name}-pokemon-card-details`}>
+        <Grid container id={`${pokemon.name}-pokemon-card-details`}>
           <Grid item xs={5}>
             <Card className={classes.root}>
               <CardMedia
