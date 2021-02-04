@@ -31,7 +31,7 @@ const Header: FunctionComponent<HeaderProps> = ({ title }) => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <IconButton>
+        <IconButton disabled>
           <SvgIcon style={{ height: '100%', width: 50 }} titleAccess="#pokedex">
             <PokedexSVG />
           </SvgIcon>
