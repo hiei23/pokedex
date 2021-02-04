@@ -72,7 +72,7 @@ const PokemonCard: FunctionComponent<PokemonCardProps> = ({ url }) => {
   const classes = useStyles()
   const { pokemon } = usePokemon(url)
   const [value, setValue] = React.useState(0);
-
+  const scale = 10
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   }
@@ -97,7 +97,7 @@ const PokemonCard: FunctionComponent<PokemonCardProps> = ({ url }) => {
 
   const chartValues = pokemonAttributes.map(label => {
     const pokemonStat = pokemon.stats.find(stat => stat.stat.name === label)
-    return Number(pokemonStat?.base_stat) / 10 ?? CHART_MIN_VALUE
+    return pokemonStat?.base_stat ?? CHART_MIN_VALUE
   })
 
   return (
@@ -129,7 +129,7 @@ const PokemonCard: FunctionComponent<PokemonCardProps> = ({ url }) => {
             <PokemonDetails
               id={pokemon.id}
               name={pokemon.name}
-              weight={pokemon.weight}
+              weight={pokemon.weight / scale}
               abilities={mappedAbilities}
               types={mappedTypes}
             />
