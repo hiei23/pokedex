@@ -51,7 +51,7 @@ context("Actions", () => {
         cy.contains("chlorophyl");
 
         cy.log("check if pokemon weight exist");
-        cy.contains(69);
+        cy.contains(6.9);
 
         cy.log("check if pokemon type exist");
         cy.contains("grass");
