@@ -9,9 +9,13 @@ interface UsePokemonsProps {
 
 interface UsePokemonsValues {
   paginatedList: PaginatedPokemonList
+  loading: boolean
+  isError: boolean
 }
 
 function usePokemons({ offset, limit }: UsePokemonsProps): UsePokemonsValues {
+  const [loading, setLoading] = useState(false)
+  const [isError, setError] = useState(false)
   const [paginatedList, setPaginatedList] = useState<PaginatedPokemonList>({
     count: 0,
     next: null,
@@ -33,9 +37,11 @@ function usePokemons({ offset, limit }: UsePokemonsProps): UsePokemonsValues {
   useEffect(() => {
     async function getPaginatedPokemonList() {
       try {
+        setLoading(true)
         const { data } = await axios.get<PaginatedPokemonList>(
           `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
         )
+        setLoading(false)
 
         setPaginatedList({
           count: data.count,
@@ -48,13 +54,13 @@ function usePokemons({ offset, limit }: UsePokemonsProps): UsePokemonsValues {
           })),
         })
       } catch (e) {
-        throw new Error(e)
+        setError(true)
       }
     }
     getPaginatedPokemonList()
   }, [offset, limit])
 
-  return { paginatedList }
+  return { paginatedList, loading, isError }
 }
 
 export default usePokemons
